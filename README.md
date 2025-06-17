@@ -1,4 +1,3 @@
-# Sentiment-Analysis-Tool
 # 🧠 Sentiment Analysis Tool
 
 An AI-powered full-stack web application for real-time sentiment detection using OpenAI's GPT-4 model. Built with **React.js**, **Node.js**, and **Express**, it classifies text as **Positive**, **Negative**, or **Neutral** with a confidence score and brief explanation.
@@ -44,22 +43,22 @@ cd sentiment-analysis-tool
 
 ### 2. Setup Backend
 
-cd server
-npm install
-# Add your OpenAI key in a .env file
-echo "OPENAI_API_KEY=your-key-here" > .env
-node index.js
+- cd server
+- npm install
+## Add your OpenAI key in a .env file
+- echo "OPENAI_API_KEY=your-key-here" > .env
+- node index.js
 
 ### 3. Setup Frontend
 
-cd ../client
-npm install
-npm start
+- cd ../client
+- npm install
+- npm start
 
 ### ✨ Upcoming Features (Phase 2+)
-📤 Upload CSV file for batch sentiment analysis
-📊 Interactive data visualization (charts)
-😃 Emotion detection (happy, angry, sad, etc.)
-📄 Export analysis to PDF report
-🔐 User authentication (optional)
+- 📤 Upload CSV file for batch sentiment analysis
+- 📊 Interactive data visualization (charts)
+- 😃 Emotion detection (happy, angry, sad, etc.)
+- 📄 Export analysis to PDF report
+- 🔐 User authentication (optional)
 
