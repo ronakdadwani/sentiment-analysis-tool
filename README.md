@@ -1,36 +1,65 @@
-# sentiment-analysis-tool
-📊 Sentiment Analysis Tool
-A full-stack AI-powered web application that analyzes the sentiment of user input text in real time using OpenAI's GPT-4 model.
+# Sentiment-Analysis-Tool
+# 🧠 Sentiment Analysis Tool
 
-Built with React.js (frontend) and Node.js (backend), this tool enables users to identify whether a message is positive, negative, or neutral — with confidence scores and explanations.
+An AI-powered full-stack web application for real-time sentiment detection using OpenAI's GPT-4 model. Built with **React.js**, **Node.js**, and **Express**, it classifies text as **Positive**, **Negative**, or **Neutral** with a confidence score and brief explanation.
+---
+## 🚀 Demo
+🖥️ Live Link: _[Coming Soon]_  
+📸 Preview Screenshot:
 
-✨ Key Features
-🔍 Real-time Sentiment Detection using OpenAI GPT-4
+---
+## 📦 Features
 
-⚙️ Full-stack architecture with React.js, Node.js, and Express
+- 🎯 Real-time sentiment detection
+- 🤖 Powered by OpenAI GPT-4 (via API)
+- 🧾 Explanation & confidence percentage
+- 🔄 Responsive and clean UI
+- 🔐 Secure backend with `.env` protection
+- ⚙️ Ready for CSV upload & analytics features (Phase 2)
 
-📦 API Integration with OpenAI for NLP
+---
 
-💬 Clean UI with responsive layout and loading/error states
+## 🛠️ Tech Stack
 
-🔒 Secure backend setup with .env and error handling
+| Layer      | Tech                        |
+|------------|-----------------------------|
+| Frontend   | React.js, Axios, CSS        |
+| Backend    | Node.js, Express.js         |
+| AI Service | OpenAI GPT-4 API            |
+| Deployment | Vercel (Frontend), Render (Backend) |
 
-🛠 Tech Stack
-Frontend: React.js, CSS (Tailwind/Custom)
+---
 
-Backend: Node.js, Express.js
+## 📁 Project Structure
 
-AI: OpenAI GPT-4 via REST API
 
-Deployment (planned): Vercel (frontend), Render (backend)
+---
 
-🚀 Upcoming Enhancements
-CSV upload for bulk sentiment analysis
+## ⚙️ Installation
 
-Visual reports with charts (Recharts/Chart.js)
+### 1. Clone the repo
 
-Emotion detection (happy, sad, angry, etc.)
+git clone https://github.com/your-username/sentiment-analysis-tool.git
+cd sentiment-analysis-tool
 
-PDF report export
+### 2. Setup Backend
 
-User authentication and history tracking
+cd server
+npm install
+# Add your OpenAI key in a .env file
+echo "OPENAI_API_KEY=your-key-here" > .env
+node index.js
+
+### 3. Setup Frontend
+
+cd ../client
+npm install
+npm start
+
+### ✨ Upcoming Features (Phase 2+)
+📤 Upload CSV file for batch sentiment analysis
+📊 Interactive data visualization (charts)
+😃 Emotion detection (happy, angry, sad, etc.)
+📄 Export analysis to PDF report
+🔐 User authentication (optional)
+
