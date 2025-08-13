@@ -1,27 +1,55 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const path = require("path");
 const { OpenAI } = require("openai");
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
+
+// Security middleware
+app.use(express.json({ limit: '1mb' })); // Limit payload size
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+
+// CORS configuration for production
+const corsOptions = {
+  origin: process.env.NODE_ENV === 'production' 
+    ? [process.env.FRONTEND_URL, 'https://yourdomain.com'] // Add your domain
+    : 'http://localhost:3000',
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
+
+// Serve static files from React build in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
 app.post("/analyze", async (req, res) => {
   const { text } = req.body;
 
-  if (!text) {
-    return res.status(400).json({ error: "Text is required" });
+  // Input validation
+  if (!text || typeof text !== 'string') {
+    return res.status(400).json({ error: "Text is required and must be a string" });
+  }
+
+  if (text.length > 1000) {
+    return res.status(400).json({ error: "Text is too long. Maximum 1000 characters allowed." });
   }
 
   try {
-    console.log("Analyzing text:", text);
+    console.log("Analyzing text:", text.substring(0, 100) + (text.length > 100 ? '...' : ''));
     
     if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === "your_openai_api_key_here") {
       // Return mock response for testing
@@ -43,6 +71,8 @@ app.post("/analyze", async (req, res) => {
           content: `Analyze the sentiment of this text: "${text}". Respond with: Sentiment (Positive/Negative/Neutral), Confidence, and a short explanation.`,
         },
       ],
+      max_tokens: 150,
+      temperature: 0.3,
     });
     
     console.log("OpenAI response received");
@@ -65,6 +95,14 @@ app.post("/analyze", async (req, res) => {
   }
 });
 
+// Serve React app for all other routes in production
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT} in ${process.env.NODE_ENV || 'development'} mode`);
+});
